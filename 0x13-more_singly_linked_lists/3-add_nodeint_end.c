@@ -2,19 +2,34 @@
 #include <stdlib.h>
 
 /**
- * free_listint -  frees a listint_t list.
- * @head: pointer to the beginning of the list
+ * add_nodeint_end - adds a new node at the end of a listint_t list.
+ * @head: double pointer to the beginning of the list
+ * @n: integer to add to the list
  *
- * Return: void
+ * Return: pointer to the new node
  */
-void free_listint(listint_t *head)
+listint_t *add_nodeint_end(listint_t **head, const int n)
 {
-	listint_t *next;
+	listint_t *new;
+	listint_t *current;
 
-	while (head != NULL)
+	if (head == NULL)
+		return (NULL);
+	new = malloc(sizeof(listint_t));
+	if (new == NULL)
+		return (NULL);
+	new->n = n;
+	new->next = NULL;
+	if (*head == NULL)
 	{
-		next = head->next;
-		free(head);
-		head = next;
+		*head = new;
+		return (new);
 	}
+	current = *head;
+	while (current->next != NULL)
+	{
+		current = current->next;
+	}
+	current->next = new;
+	return (new);
 }
